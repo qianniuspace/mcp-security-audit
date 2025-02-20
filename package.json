@@ -1,6 +1,6 @@
 {
   "name": "mcp-security-audit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Audit your package.json dependencies",
   "author": {
     "name": "esx",
