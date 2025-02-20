@@ -1,4 +1,6 @@
 # Security Audit Tool
+[![smithery badge](https://smithery.ai/badge/@qianniuspace/mcp-security-audit)](https://smithery.ai/server/@qianniuspace/mcp-security-audit)
+
 
 A MCP Server that can audit npm package dependencies for security vulnerabilities. Built with the Model Context Protocol (MCP).
 
@@ -13,6 +15,14 @@ A MCP Server that can audit npm package dependencies for security vulnerabilitie
 - Generate detailed vulnerability reports
 - Support for multiple severity levels (critical, high, moderate, low)
 - Compatible with package.json dependency format
+
+### Installing via Smithery
+
+To install Security Audit Tool for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@qianniuspace/mcp-security-audit):
+
+```bash
+npx -y @smithery/cli install @qianniuspace/mcp-security-audit --client claude
+```
 
 ### MCP Integration
 
