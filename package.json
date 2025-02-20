@@ -1,0 +1,53 @@
+{
+  "name": "mcp-security-audit",
+  "version": "1.0.1",
+  "description": "Audit your package.json dependencies",
+  "author": {
+    "name": "esx",
+    "email": "qianniuspace@gmail.com",
+    "url": "https://cloudesx.com/"
+  },
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "modelcontextprotocol",
+    "package",
+    "audit",
+    "dependencies",
+    "package.json"
+  ],
+  "bugs": {
+    "url": "https://github.com/qianniuspace/mcp-security-audit/issues"
+  },
+  "homepage": "https://github.com/qianniuspace/mcp-security-audit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qianniuspace/mcp-security-audit.git"
+  },
+  "type": "module",
+  "bin": {
+    "mcp-security-audit": "./build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "prepare": "npm run build",
+    "watch": "tsc --watch",
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js",
+    "bump": "npx -y standard-version --skip.tag && git add . ; git commit -m 'chore: bump version' ; git push"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.5.0",
+    "chalk": "^5.4.1",
+    "npm-audit-report": "^6.0.0",
+    "npm-registry-fetch": "^18.0.2",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "typescript": "^5.7.3"
+  }
+}
