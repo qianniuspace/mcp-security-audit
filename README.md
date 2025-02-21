@@ -4,6 +4,10 @@
 [![NPM version](https://img.shields.io/npm/v/mcp-security-audit.svg)](https://www.npmjs.com/package/mcp-security-audit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+<a href="https://glama.ai/mcp/servers/jjnmdxzmeu">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/jjnmdxzmeu/badge" />
+</a>
+
 A powerful MCP (Model Context Protocol) Server that audits npm package dependencies for security vulnerabilities. Built with remote npm registry integration for real-time security checks.
 
 ## Features
