@@ -1,4 +1,3 @@
-```markdown
 # Security Audit Tool
 
 [![smithery badge](https://smithery.ai/badge/@qianniuspace/mcp-security-audit)](https://smithery.ai/server/@qianniuspace/mcp-security-audit)
