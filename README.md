@@ -1,5 +1,3 @@
-我已阅读完整个项目代码库。这是一个基于 MCP (Model Context Protocol) 的 npm 包安全审计工具。让我帮您优化 README.md，使其更加清晰和专业。
-
 ```markdown
 # Security Audit Tool
 
@@ -20,7 +18,17 @@ A powerful MCP (Model Context Protocol) Server that audits npm package dependenc
 - 📋 CVSS scoring and CVE references
 
 
-## MCP Integration
+
+### Installing via Smithery
+
+To install Security Audit Tool for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@qianniuspace/mcp-security-audit):
+
+```bash
+npx -y @smithery/cli install @qianniuspace/mcp-security-audit --client claude
+```
+
+### MCP Integration
+
 
 1. Clone the repository:
 ```bash
