@@ -44,7 +44,7 @@ class SecurityAuditServer {
 
         // Setup error handling
         this.server.onerror = (error) => console.error('[MCP Error]', error)
-        
+
         // Handle graceful shutdown
         process.on('SIGINT', async () => {
             await this.server.close()
@@ -61,7 +61,7 @@ class SecurityAuditServer {
         this.server.setRequestHandler(ListToolsRequestSchema, async () => ({
             tools: [
                 {
-                    name: 'audit_dependencies',
+                    name: 'audit_nodejs_dependencies',
                     description: 'Audit specific dependencies for vulnerabilities',
                     inputSchema: {
                         type: 'object',
@@ -85,23 +85,20 @@ class SecurityAuditServer {
             // Validate request parameters
             if (!request.params.arguments) {
                 throw new McpError(
-                  ErrorCode.InvalidParams,
-                  'Missing arguments'
+                    ErrorCode.InvalidParams,
+                    'Missing arguments'
                 )
             }
 
-            let result;
             // Route request to appropriate handler
             switch (request.params.name) {
-                case 'audit_dependencies':
-                    result = await this.securityHandler.auditDependencies(
+                case 'audit_nodejs_dependencies':
+                    return this.securityHandler.auditNodejsDependencies(
                         request.params.arguments as { dependencies: NpmDependencies }
                     );
-                    break;
                 default:
                     throw new McpError(ErrorCode.MethodNotFound, `Unknown tool: ${request.params.name}`);
             }
-            return { result };
         })
     }
 

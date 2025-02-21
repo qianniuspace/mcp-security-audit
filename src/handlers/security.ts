@@ -3,13 +3,10 @@
  * Provides functionality to check for vulnerabilities in npm packages
  */
 
-import { exec } from 'child_process';
-import { promisify } from 'util';
-import { AuditResult, Vulnerability, NpmDependencies } from '../types/index.js';
+import { Vulnerability, NpmDependencies } from '../types/index.js';
 import { McpError, ErrorCode } from '@modelcontextprotocol/sdk/types.js';
 import npmFetch from 'npm-registry-fetch';
 
-const execAsync = promisify(exec);
 
 export class SecurityAuditHandler {
     /**
@@ -48,7 +45,7 @@ export class SecurityAuditHandler {
             if (!result) {
                 throw new Error(`No response received for ${name}@${cleanVersion}`);
             }
-            
+
             return result;
         } catch (error) {
             console.error(`[ERROR] Error auditing ${name}@${version}:`, error);
@@ -64,12 +61,10 @@ export class SecurityAuditHandler {
      * @param dependencies - Object containing package names and versions to audit
      * @returns Promise containing consolidated audit results
      */
-    async auditDependencies({ dependencies }: { 
-        dependencies: NpmDependencies
-    }): Promise<AuditResult> {
+    async auditNodejsDependencies(args: { dependencies: NpmDependencies }) {
         try {
             // Validate dependencies object
-            if (!dependencies || typeof dependencies !== 'object') {
+            if (!args || typeof args.dependencies !== 'object') {
                 throw new McpError(
                     ErrorCode.InvalidParams,
                     'Invalid dependencies object'
@@ -77,62 +72,33 @@ export class SecurityAuditHandler {
             }
 
             // Handle potentially nested dependencies object
-            const actualDeps = dependencies.dependencies || dependencies;
+            const actualDeps = args.dependencies.dependencies || args.dependencies;
 
-            // Validate dependencies are not empty
-            if (Object.keys(actualDeps).length === 0) {
-                throw new McpError(
-                    ErrorCode.InvalidParams,
-                    'Dependencies object is empty'
-                );
-            }
-
-            // Transform dependencies into required format
-            const depsEntries = Object.entries(actualDeps).filter(([name, version]) => 
-                name && version && typeof version === 'string'
-            );
-
-            // Create content array with cleaned versions
-            const content = depsEntries.map(([name, version]) => {
-                const versionStr = version.trim();
-                return {
-                    name,
-                    version: versionStr.startsWith('^') || versionStr.startsWith('~') 
-                        ? versionStr.substring(1) 
-                        : versionStr
-                };
-            });
-
-            // Process each dependency individually for better error handling
             const auditResults = [];
-            for (const dep of content) {
+            for (const [name, version] of Object.entries(actualDeps)) {
+                if (typeof version !== 'string') continue
                 try {
-                    const result = await this.auditSingleDependency(dep.name, dep.version);
+                    const result = await this.auditSingleDependency(name, version);
                     auditResults.push(result);
                 } catch (error) {
-                    console.error(`[ERROR] Failed to audit ${dep.name}@${dep.version}:`, error);
+                    console.error(`[ERROR] Failed to audit ${name}@${version}:`, error);
                     // Continue processing other dependencies
                 }
             }
 
             // Merge and process all vulnerability results
-            const mergedVulnerabilities = auditResults.flatMap(result => 
+            const mergedVulnerabilities = auditResults.flatMap(result =>
                 this.processVulnerabilities(result)
             );
 
-            // Generate summary statistics
-            const summary = this.generateSummary(mergedVulnerabilities);
-
             // Return consolidated results
             return {
-                vulnerabilities: mergedVulnerabilities,
-                summary,
-                metadata: {
-                    timestamp: new Date().toISOString(),
-                    packageManager: 'npm',
-                    projectName: 'dependency-audit',
-                    content
-                }
+                content: [
+                    {
+                        type: 'text',
+                        text: JSON.stringify(mergedVulnerabilities, null, 2),
+                    },
+                ]
             };
         } catch (error) {
             console.error('[ERROR] Audit failed:', error);
@@ -185,4 +151,4 @@ export class SecurityAuditHandler {
             low: vulnerabilities.filter(v => v.severity === 'low').length
         };
     }
-} 
+}
