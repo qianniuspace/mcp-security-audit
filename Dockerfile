@@ -29,7 +29,7 @@ COPY --from=builder /app/package.json /app/package.json
 COPY --from=builder /app/package-lock.json /app/package-lock.json
 
 # Install production dependencies only
-RUN npm install --omit=dev
+RUN npm install --omit=dev --ignore-scripts
 
 # Command to run the application
 ENTRYPOINT ["node", "build/index.js"]
