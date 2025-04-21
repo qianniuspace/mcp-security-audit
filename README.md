@@ -35,16 +35,7 @@ npx -y @smithery/cli install @qianniuspace/mcp-security-audit --client claude
 #### Option 1: Using NPX (Recommended)
 
 
-1. Add MCP configuration to Cursor:
-```json
-{
-  "Name": "mcp-security-audit",
-  "Type": "command",
-  "Command": "npx -y mcp-security-audit"
-}
-```
-
-2. Add MCP configuration to Cline:
+1. Add MCP configuration to Cline /Cursor:
 ```json
 {
   "mcpServers": {
@@ -70,16 +61,7 @@ npm install
 npm run build
 ```
 
-3. Add MCP configuration to Cursor:
-```json
-{
-  "Name": "mcp-security-audit",
-  "Type": "command",
-  "Command": "node /path/to/mcp-security-audit/build/index.js"
-}
-```
-
-4. Add MCP configuration to Cline:
+3. Add MCP configuration to Cline /Cursor :
 ```json
 {
   "mcpServers": {
