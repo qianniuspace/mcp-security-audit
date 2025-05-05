@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/qianniuspace-mcp-security-audit-badge.png)](https://mseep.ai/app/qianniuspace-mcp-security-audit)
+
 # Security Audit Tool
 
 [![smithery badge](https://smithery.ai/badge/@qianniuspace/mcp-security-audit)](https://smithery.ai/server/@qianniuspace/mcp-security-audit)
