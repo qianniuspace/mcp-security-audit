@@ -1,7 +1,7 @@
 
 # Security Audit Tool
 
-[![smithery badge](https://smithery.ai/badge/@qianniuspace/mcp-security-audit)](https://smithery.ai/server/@qianniuspace/mcp-security-audit)
+[![LightNow capabilities](https://lightnow.ai/badge/io.github.qianniuspace/mcp-security-audit)](https://lightnow.ai/servers/io.github.qianniuspace/mcp-security-audit)
 [![NPM version](https://img.shields.io/npm/v/mcp-security-audit.svg)](https://www.npmjs.com/package/mcp-security-audit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
